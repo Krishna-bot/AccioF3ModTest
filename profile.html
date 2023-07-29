@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Authentication - Profile</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Signup Successful!</h1>
+      <div id="profile-details"></div>
+      <button id="logout">Logout</button>
+    </div>
+    <!-- <script src="script.js"></script> -->
+
+    <script>
+      // Check if the user is logged in
+      function checkLoginStatus() {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user || !user.accessToken) {
+          // If there is no access token, redirect to the signup page
+          window.location.href = "index.html";
+        } else {
+          // Display user details on the profile page
+          const profileDetailsContainer = document.getElementById("profile-details");
+          // Update this section with appropriate user details based on your design
+          profileDetailsContainer.innerHTML = `
+      <p><strong>Full Name:</strong> ${user.username}</p>
+      <p><strong>Email:</strong> ${user.email}</p>
+      <p><strong>Token:</strong> ${user.accessToken}</p>
+      <p><strong>Password:</strong> ${user.password}</p>
+    `;
+        }
+      }
+      // Check login status on page load
+      checkLoginStatus();
+
+      // Function to handle the logout process
+      function handleLogout() {
+        // Clear local storage
+        localStorage.removeItem("user");
+
+        // Redirect to the signup page
+        window.location.href = "index.html";
+      }
+
+      document.getElementById("logout").addEventListener("click", handleLogout);
+    </script>
+  </body>
+</html>
